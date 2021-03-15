@@ -29,9 +29,6 @@ class AuthenticateUserService {
   public async execute({ email, password }: IRequest): Promise<IResponse> {
     const user = await this.userRepository.findByEmail(email);
 
-    // user.password = Senha criptografada
-    // password : Senha nao criptografada
-
     if (!user) {
       throw new AppError('Incorrect email/password combination.', 401);
     }
