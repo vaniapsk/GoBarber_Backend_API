@@ -8,13 +8,14 @@ import AppError from '@shared/errors/AppError';
 import routes from './routes';
 
 import '@shared/infra/typeorm';
-import '@shared/container/providers';
+import '@shared/container';
+// import '@shared/container/providers';
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
-app.use('/files', express.static(uploadConfig.directory));
+app.use('/files', express.static(uploadConfig.uploadsFolder));
 app.use(routes);
 
 // it was app.use((err: Error, request: Request, response: Response, next: NextFunction)=>...)
