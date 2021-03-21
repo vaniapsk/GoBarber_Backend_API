@@ -6,7 +6,7 @@ import authConfig from '@config/auth';
 import AppError from '@shared/errors/AppError';
 
 // creating this interface, so users will only be able to see their information, not other people
-interface TokenPayload {
+interface ITokenPayload {
   iat: number;
   exp: number;
   sub: string;
@@ -29,7 +29,7 @@ export default function ensureAuthenticated(
   try {
     const decoded = verify(token, authConfig.jwt.secret);
 
-    const { sub } = decoded as TokenPayload;
+    const { sub } = decoded as ITokenPayload;
 
     // adding user to this route
     request.user = {
