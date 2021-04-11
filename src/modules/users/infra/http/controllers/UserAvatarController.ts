@@ -3,16 +3,7 @@ import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 
 import UpdateUSerAvatarService from '@modules/users/services/UpdateUserAvatarService';
-
-interface IUserWithoutPassword {
-  id: string;
-  name: string;
-  email: string;
-  password?: string;
-  avatar: string;
-  created_at: Date;
-  updated_at: Date;
-}
+import { classToClass } from 'class-transformer';
 
 export default class UserAvatar {
   public async update(request: Request, response: Response): Promise<Response> {
@@ -23,21 +14,7 @@ export default class UserAvatar {
       avatarFileName: request.file.filename,
     });
 
-    const userNoPass: IUserWithoutPassword = {
-      id: user.id,
-
-      name: user.name,
-      email: user.email,
-      password: user.password,
-      avatar: user.avatar,
-      created_at: user.created_at,
-      updated_at: user.updated_at,
-    };
-
-    // So it doesn't return password
-    delete userNoPass.password;
-
     // delete user.password;
-    return response.json({ userNoPass });
+    return response.json(classToClass(user));
   }
 }

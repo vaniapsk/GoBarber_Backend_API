@@ -3,6 +3,11 @@
 node_modules/
 build/
 temp/
+.env
+coverage
+ormconfig.json
+SES_MEIL_SECRET.txt
+
 tmp/*
 !tmp/.gitkeep
 

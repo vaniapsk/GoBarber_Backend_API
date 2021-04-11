@@ -33,6 +33,12 @@ class UpdateUserAvatarService {
       await this.storageProvider.deleteFile(user.avatar);
     }
 
+    // try {
+    //   await this.storageProvider.saveFile(avatarFileName);
+    // } catch (e) {
+    //   // eslint-disable-next-line no-console
+    //   console.log(e);
+    // }
     const filename = await this.storageProvider.saveFile(avatarFileName);
 
     user.avatar = filename;

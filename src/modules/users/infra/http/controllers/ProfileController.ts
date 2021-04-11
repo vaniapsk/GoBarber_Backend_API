@@ -3,16 +3,8 @@ import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 import UpdateProfileService from '@modules/users/services/UpdateProfileService';
 import ShowProfileService from '@modules/users/services/ShowProfileService';
+import { classToClass } from 'class-transformer';
 
-interface IUserWithoutPassword {
-  user_id: string;
-  name: string;
-  email: string;
-  password?: string;
-  avatar: string;
-  created_at: Date;
-  updated_at: Date;
-}
 export default class ProfileController {
   public async show(request: Request, response: Response): Promise<Response> {
     // show profile
@@ -22,9 +14,9 @@ export default class ProfileController {
 
     const user = await showProfile.execute({ user_id });
 
-    delete user.password;
+    // delete user.password;
 
-    return response.json(user);
+    return response.json(classToClass(user));
   }
 
   public async update(request: Request, response: Response): Promise<Response> {
@@ -41,22 +33,7 @@ export default class ProfileController {
       old_password,
       password,
     });
-    // So it doesn't return password
-    //  delete user.password;
 
-    const userNoPass: IUserWithoutPassword = {
-      user_id: user.id,
-      name: user.name,
-      email: user.email,
-      password: user.password,
-      avatar: user.avatar,
-      created_at: user.created_at,
-      updated_at: user.updated_at,
-    };
-
-    // So it doesn't return password
-    delete userNoPass.password;
-
-    return response.json(userNoPass);
+    return response.json(classToClass(user));
   }
 }
