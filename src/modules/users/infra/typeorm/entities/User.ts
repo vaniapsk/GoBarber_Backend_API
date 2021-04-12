@@ -8,7 +8,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
-import uploadConfig from 'config/upload'
+import uploadConfig from '@config/upload';
 
 import { Exclude, Expose } from 'class-transformer';
 
