@@ -9,11 +9,6 @@ import IFindAllInMonthInProviderDTO from '@modules/appointments/dtos/IFindAllInM
 import IFindAllInDayInProviderDTO from '@modules/appointments/dtos/IFindAllInDayInProviderDTO';
 import Appointment from '../entities/Appointment';
 
-// interface CreateAppointmentDTO {
-//   provider: string;
-//   date: Date;
-// }
-
 class AppointmentsRepository implements IAppointmentsRepository {
   private ormRepository: Repository<Appointment>;
 
@@ -22,13 +17,12 @@ class AppointmentsRepository implements IAppointmentsRepository {
   }
 
   // Will return Appointment or null
-  public async findByDate(date: Date): Promise<Appointment | undefined> {
-    // const findAppointment = this.appointments.find(appointment =>
-    //   isEqual(date, appointment.date),
-    // );
-
+  public async findByDate(
+    date: Date,
+    provider_id: string,
+  ): Promise<Appointment | undefined> {
     const findAppointment = await this.ormRepository.findOne({
-      where: { date },
+      where: { date, provider_id },
     });
 
     // If appointment is found, return appointment. Else, return null.
@@ -74,6 +68,9 @@ class AppointmentsRepository implements IAppointmentsRepository {
             `to_char(${dateFieldName}, 'DD-MM-YYYY') = '${parsedDay}-${parsedMonth}-${year}'`,
         ),
       },
+      // Eager Loading relations - this is similat to eager in Appointment entitiy.
+      // It will retun obj of user
+      relations: ['user'],
     });
 
     return appointments;

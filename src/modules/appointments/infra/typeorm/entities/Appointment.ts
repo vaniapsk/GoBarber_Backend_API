@@ -26,6 +26,8 @@ class Appointment {
   @Column()
   user_id: string;
 
+  // will return user object
+  //  @ManyToOne(() => User, { eager: true })
   @ManyToOne(() => User)
   @JoinColumn({ name: 'user_id' })
   user: User;
