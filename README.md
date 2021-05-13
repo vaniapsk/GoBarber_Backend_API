@@ -1,7 +1,7 @@
 # GoBarber API
 
 **How to run**
- - yarn (to install all dependencies)
+ 
  - Make sure you add all the databases (Regis, Postgres and MongoDb. - I am using docker to run all of them):
      * Postgres:
         - Database name: gostack_gobarber
@@ -11,7 +11,9 @@
         - Database name: gobarber
         - Username: --
         - Password: --
-     
+
+
+ - yarn (to install all dependencies)
  - yarn dev:server
 
 # Recover password
